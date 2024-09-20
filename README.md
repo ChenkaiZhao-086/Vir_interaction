@@ -11,7 +11,7 @@ Corresponding author: You Li, You.Li@njmu.edu.cn
                       Xin Wang Xin.Wang@njmu.edu.c
 
 Input/Output files - see paper for references: 
-- Data/Full-text table-V1.7.xlsx: sample data
+- Data/Full-text table-sample.xlsx: sample data
 
 Package versions are: 
 readxl_1.4.3
