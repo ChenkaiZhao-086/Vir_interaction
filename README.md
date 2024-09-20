@@ -8,7 +8,7 @@ Authors: Chenkai Zhao, Tiantian Zhang, Ling Guo, Shiqi Sun, Yumeng Miao, Chee Fu
 See LICENSE file for licensing details.
 
 Corresponding author: You Li, You.Li@njmu.edu.cn 
-                      Xin Wang Xin.Wang@njmu.edu.c
+                      Xin Wang, Xin.Wang@njmu.edu.cn
 
 Input/Output files - see paper for references: 
 - Data/Full-text table-sample.xlsx: sample data
