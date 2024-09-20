@@ -5,6 +5,7 @@ This repository contains the code for the paper: Characterising the asynchronous
 All the fitting, analysis and figure generation can be run from "main.R". This loads in all the dependencies and functions. It has to be run in the order specified, and opens any files where manual edits can be made (e.g. type of simulation outcome). All the code and data (which is publically available) are in the repo, and can be run directly from the master script. 
 
 Authors: Chenkai Zhao, Tiantian Zhang, Ling Guo, Shiqi Sun, Yumeng Miao, Chee Fu Yung, Jane Tomlinson, Kirill Stolyarov, Zakhar Shchomak, Yong Poovorawan, David James Nokes, Carmen Muñoz-Almagro, Michal Mandelboim, James W Keck, Joanne Marie Langley, Terho Heikkinen, Jikui Deng, Philippe Colson, Giorgi Chakhunashvili, Mauricio T. Caballero, Louis Bont, Daniel R Feikin, Harish Nair, Xin Wang, You Li for the Respiratory Virus Global Epidemiology Network
+
 See LICENSE file for licensing details.
 
 Corresponding author: You Li, You.Li@njmu.edu.cn 
