@@ -321,7 +321,7 @@ NBM.cal <- function(dat, index) {
 #'  Random effect model
 REM.cal <- function(dat, index) {
   formula <- as.formula(paste0(index, "~ 1 + (1 | Country)"))
-  model <-glmmTMB(formula, family = nbinom2(), data = dat)
+  model <- glmmTMB(formula, family = nbinom2(), data = dat)
   SummModel <- suppressWarnings(summary(model))
   mean <- exp(SummModel[["coefficients"]][["cond"]][1, 1])
   cal.mean <- SummModel[["coefficients"]][["cond"]][1, 1]

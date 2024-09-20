@@ -28,7 +28,7 @@ sandwich3.1-0
 lme4_1.1-35.5
 merTools_0.6.2
 sjstats_0.19.0
-glmmTMB_1.1.8
+glmmTMB_1.1.9
 metafor_4.6-0
 
 

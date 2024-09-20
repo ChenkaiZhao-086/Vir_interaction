@@ -1,14 +1,8 @@
 # Ad hoc analysis
 # In this analysis, we will focus on the following databases:
-# c("S61", "S62A", "S63A", "S64", "S74", "S117")
-# NREVSS, Seattle, Houston, Korea, Canada national, Scotland (except RV, AdV)
+# c("S61", "S62A", "S63A", "S64", "S74", "S117", "S122", "S125B")
+# NREVSS, Seattle, Houston, Korea, Canada national, Scotland (except RV, AdV), Netherland, France
 
-
-c("S61", "S62A", "S63A", "S64", "S74", "S117")
-
-
-
-# MainDat, MainDat_IFV,
 suppressWarnings(rm(
   MainAnalysis_Recir_REM, MainAnalysis_Peak_REM, MainAnalysis_Recir_IFV,
   MainAnalysis_Peak_IFV, TwoVirTable, TwoVirTable_Main, IFV_split, TwoVirTable_IFV, TwoVirTable_Main_IFV,
@@ -18,8 +12,6 @@ suppressWarnings(rm(
   cl, FilePath.Sens1
 ))
 
-
-
 set.seed(971889)
 
 
@@ -27,12 +19,12 @@ set.seed(971889)
 
 FilePath.Sens1 <- CreateSubFolder(FilePath, "Ad hoc")
 
-SensDat1 <- All_Vir[Study_ID %in% c("S61", "S62A", "S63A", "S64", "S74", "S117") &
+SensDat1 <- All_Vir[Study_ID %in% c("S61", "S62A", "S63A", "S64", "S74", "S117", "S122", "S125B") &
   Index_of_Wave != 0 &
-  Virus_name %in% c("RSV", "PIV", "MPV", "sCoV", "RV", "AdV", "IFVA", "IFVB")] %>%
+  Virus_name %in% c("RSV", "PIV", "MPV", "sCoV", "RV", "AdV", "IAV", "IBV")] %>%
   mutate(
     Virus_name = as_factor(Virus_name),
-    Virus_name = fct_relevel(Virus_name, "IFVA", "IFVB", "RSV", "PIV", "MPV", "sCoV", "RV", "AdV")
+    Virus_name = fct_relevel(Virus_name, "IAV", "IBV", "RSV", "PIV", "MPV", "sCoV", "RV", "AdV")
   ) %>%
   mutate(
     Time_interval = as.numeric(Time_interval),
