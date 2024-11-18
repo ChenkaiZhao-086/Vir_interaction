@@ -402,10 +402,10 @@ Calu.SingleVir.plot <- function(dat, target, save, path, width = 16, height = 8,
       plot.margin = unit(c(1, 1.5, 1, 1.5), "cm")
     )
 
-  print(fig)
+  suppressWarnings(print(fig))
 
   if (save == T) {
-    ggsave(fig, file = path, width = width, height = height)
+    suppressWarnings(ggsave(fig, file = path, width = width, height = height))
   }
 }
 
@@ -1069,7 +1069,7 @@ Liner.cal <- function(dat, target) {
     EXPRESS <- as.formula(paste0(target, "~ 1"))
     model <- lm(EXPRESS, data = dat)
   }
-  Summ <- summary(model)
+  Summ <- suppressWarnings(summary(model))
 
   Table <- data.frame(
     FirstVir = dat$FirstVir[1],

@@ -2,7 +2,7 @@
 
 ### !!! IMPORTANT !!! ####
 ### Please confirm that Rtools is installed on your computer, otherwise the following code cannot run.
-### You can use the code below to check.
+### You can use the following code to check.
 # pkgbuild::has_build_tools()
 
 # Please confirm that the following  packages have been installed.
@@ -21,7 +21,7 @@ source("Code/func.R")
 # 0. Data import ----------------------------------------------------------
 # source("Code/DataPrepare.R")
 ### This RData is extracted data with longitude and latitude
-load("~/Documents/600_Project/610_System_review/All_Vir.RData")
+load("All_Vir.RData")
 if (!file.exists("Output")) {
   dir.create("Output")
 }
@@ -129,8 +129,6 @@ ggsave(
 
 FilePath.sec2 <- CreateSubFolder(FilePath, "1.Main")
 
-# S65 全芬兰, S68A 全Atlantic, S69C 全Prairies, S70L 全Ontario, S71E 全魁北克 S74 全加拿大
-
 MainDat <- All_Vir[!Study_ID %in% c(
   "S29A", "S59B", "S62A", "S63A", "S89B", "S90B", "S91B", "S92B", "S93B", "S94B", "S96B",
   "S118B", "S119B", "S120B", "S121B", "S122", "S123B", "S124B", "S125B", "S126B", "S127B", "S128B", "S129B",
@@ -195,8 +193,8 @@ TwoVirTable_Sec <- foreach(
 TwoVirReport_Recir_Sec <- ReportTwoVir(dat = TwoVirTable_Sec, index = "last")
 TwoVirReport_Peak_Sec <- ReportTwoVir(dat = TwoVirTable_Sec, index = "peak")
 
-fwrite(TwoVirReport_Recir_Sec, paste0(FilePath.sec2, "Two_recir_Sec.csv"), row.names = F)
-fwrite(TwoVirReport_Peak_Sec, paste0(FilePath.sec2, "Two_peak_Sec.csv"), row.names = F)
+fwrite(TwoVirReport_Recir_Sec, paste0(FilePath.sec2, "Two_recir_Sec.csv"), row.names = FALSE)
+fwrite(TwoVirReport_Peak_Sec, paste0(FilePath.sec2, "Two_peak_Sec.csv"), row.names = FALSE)
 
 ### Plotting --------------------------------------------------------------
 # Recir
