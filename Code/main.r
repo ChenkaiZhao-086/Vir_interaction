@@ -1,5 +1,11 @@
 # rm(list=ls())
 
+### !!! IMPORTANT !!! ####
+### Please confirm that Rtools is installed on your computer, otherwise the following code cannot run.
+### You can use the code below to check.
+# pkgbuild::has_build_tools()
+
+# Please confirm that the following  packages have been installed.
 packages <- c(
   "readxl", "finalfit", "tidyverse", "data.table", "mapdata", "tidygeocoder", "foreach", "doParallel", "MASS",
   "lmtest", "sandwich", "lme4", "merTools", "sjstats", "glmmTMB", "metafor"
@@ -22,8 +28,7 @@ if (!file.exists("Output")) {
 FilePath <- CreateMainFolder(path = "Output/", FolderName = "Revise") # CreateMainFolder(path = "Output/", Date = TRUE)
 
 set.seed(971889)
-
-cl <- makeCluster(10)
+cl <- makeCluster(10) # Please modify the number of cores you wish to use.
 registerDoParallel(cl)
 
 # 1. Plot epidemic character and world map --------------------------------
