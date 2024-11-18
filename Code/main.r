@@ -16,7 +16,9 @@ source("Code/func.R")
 # source("Code/DataPrepare.R")
 ### This RData is extracted data with longitude and latitude
 load("~/Documents/600_Project/610_System_review/All_Vir.RData")
-
+if (!file.exists("Output")) {
+  dir.create("Output")
+}
 FilePath <- CreateMainFolder(path = "Output/", FolderName = "Revise") # CreateMainFolder(path = "Output/", Date = TRUE)
 
 set.seed(971889)

@@ -26,7 +26,7 @@ SensDat1 <- All_Vir[!Study_ID %in% c(
     "S68A", "S68B", "S68C", "S68D", "S69A", "S69B", "S69C", "S69D", "S70A", "S70B", "S70C",
     "S70D", "S70E", "S70K", "S70L", "S70M", "S71C", "S71E", "S71F", "S73",
     "S89B", "S90B", "S91B", "S92B", "S93B", "S94B", "S96B",
-    "S118B", "S119B", "S120B", "S121B", "S122", "S123B", "S124B", "S125B", "S126B", "S127B", "S128B", "S129B",
+    "S118B", "S119B", "S120B", "S121B", "S122", "S123B", "S124B", "S125B", "S126B", "S127B", "S128B", "S129B"
 ) &
     Index_of_Wave != 0 & Index_of_Wave <= 2 &
     Virus_name %in% c("RSV", "PIV", "MPV", "sCoV", "RV", "AdV", "IAV", "IBV")] %>%

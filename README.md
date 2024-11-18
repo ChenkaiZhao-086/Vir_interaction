@@ -11,7 +11,7 @@ Xin Wang, Xin.Wang@njmu.edu.cn
 All the fitting, analysis and figure generation can be run from "main.R". This loads in all the dependencies and functions. It has to be run in the order specified, and opens any files where manual edits can be made (e.g. type of simulation outcome). All the code and data (which is publically available) are in the repo, and can be run directly from the master script. 
 
 **IMPORTANT:**
-In sensitivity analyses 4 and 5, if you want to save the correct `Matching_Recir.pdf` and `Matching_Peak.pdf` files, you need to run the scripts `Code/Sens4.R` and `Code/Sens4.R` line by line. If you run these two scripts using `source()` function in `Code/main.r`, you will get the same results, but the display of the figures will be different.
+In sensitivity analyses 4 and 5, if you want to save the correct `Matching_Recir.pdf` and `Matching_Peak.pdf` files, you need to run the scripts `Code/Sens4.R` and `Code/Sens5.R` line by line. If you run these two scripts using `source()` function in `Code/main.r`, you will get the same results, but the display of the figures will be different.
 
 
 

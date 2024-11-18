@@ -36,12 +36,12 @@ SensDat1 <- All_Vir[!Study_ID %in% c(
 
 Sens1_MainAnalysis_Recir_REM <- Calu.SingleVir(SensDat1,
   target = "Time_interval", func = "REM", plot = TRUE, save = TRUE,
-  path = paste0(FilePath.Sens1, "Pooling_Recir_Part1.pdf"), width = 12, height = 12, report = FALSE
+  path = paste0(FilePath.Sens1, "Pooling_Recir_Part1.pdf"), width = 12, height = 18, report = FALSE
 )
 
 Sens1_MainAnalysis_Peak_REM <- Calu.SingleVir(SensDat1,
   target = "Peak_interval", func = "REM", plot = TRUE, save = TRUE,
-  path = paste0(FilePath.Sens1, "Pooling_Peak_Part1.pdf"), width = 12, height = 12, report = FALSE
+  path = paste0(FilePath.Sens1, "Pooling_Peak_Part1.pdf"), width = 12, height = 18, report = FALSE
 )
 
 fwrite(Sens1_MainAnalysis_Recir_REM, paste0(FilePath.Sens1, "Pooling_Recir_Part1.csv"), row.names = FALSE)
