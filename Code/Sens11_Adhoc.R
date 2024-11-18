@@ -1,5 +1,7 @@
-# Sensitivity analysis 10
-# Filter out the studies with all age groups (remove studies conducted in adolescents (<18), infants (<5))
+# Ad hoc analysis
+# In this analysis, we will focus on the following databases:
+# c("S61", "S62A", "S63A", "S64", "S74", "S117", "S122", "S125B")
+# NREVSS, Seattle, Houston, Korea, Canada national, Scotland (except RV, AdV), Netherland, France
 
 suppressWarnings(rm(
   MainAnalysis_Recir_REM, MainAnalysis_Peak_REM, MainAnalysis_Recir_IFV,
@@ -18,10 +20,22 @@ registerDoParallel(cl)
 
 # 2. Single virus analysis
 
-FilePath.Sens1 <- CreateSubFolder(FilePath, "10.All age")
+FilePath.Sens1 <- CreateSubFolder(FilePath, "Ad hoc")
 
-SensDat1 <- MainDat[Age_group == "All age"]
+SensDat1 <- All_Vir[Study_ID %in% c("S61", "S62A", "S63A", "S64", "S74", "S117", "S122", "S125B") &
+  Index_of_Wave != 0 &
+  Virus_name %in% c("RSV", "PIV", "MPV", "sCoV", "RV", "AdV", "IAV", "IBV")] %>%
+  mutate(
+    Virus_name = as_factor(Virus_name),
+    Virus_name = fct_relevel(Virus_name, "IAV", "IBV", "RSV", "PIV", "MPV", "sCoV", "RV", "AdV")
+  ) %>%
+  mutate(
+    Time_interval = as.numeric(Time_interval),
+    Peak_interval = as.numeric(Peak_interval),
+    hemisphere = if_else(lat > 0, "North hemisphere", "South hemisphere")
+  )
 
+SensDat1 <- SensDat1[!(Study_ID == "S117" & Virus_name %in% c("RV", "AdV"))]
 
 Sens1_MainAnalysis_Recir_REM <- Calu.SingleVir(SensDat1,
   target = "Time_interval", func = "REM", plot = TRUE, save = TRUE,
@@ -41,6 +55,7 @@ NewDat <- copy(SensDat1)
 PercentIncrease <- Calu.Percent(NewDat, target = "Time_interval")
 fwrite(PercentIncrease, paste0(FilePath.Sens1, "PercentIncrease_Part1.csv"), row.names = FALSE)
 fwrite(OldWave, paste0(FilePath.Sens1, "OldWave_Part1.csv"), row.names = FALSE)
+
 
 # 3. Virus-virus analysis -------------------------------------------------
 #### First wave -----------------------------------------------------------

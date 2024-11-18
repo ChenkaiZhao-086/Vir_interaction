@@ -1,4 +1,4 @@
-FileName <- "Data/Full-text table-V1.7.xlsx"
+FileName <- "Data/Full-text table-V1.8.1.xlsx"
 
 Income <- read_excel("Data/income.xlsx") # World bank income classification
 

@@ -1,5 +1,5 @@
-# Sensitivity analysis 2
-# Filter data that only from high-income countries and from none high-income countries (UM_LM_L)
+# Sensitivity analysis 3
+# Filter studies from the North hemisphere temperate zone (23.5 above) and the South hemisphere temperate zone (23.5 below)
 
 suppressWarnings(rm(
   cl, ColIndex, MergedDat, FilePath.Sens1, MainAnalysis_Peak_REM, MainAnalysis_Recir_REM, Sens1_MainDat_Sec,
@@ -17,9 +17,9 @@ cl <- makeCluster(10)
 registerDoParallel(cl)
 
 # 2. Single virus analysis
-FilePath.Sens1 <- CreateSubFolder(FilePath, "2.From High-income")
-### High-income countries -----------------------------------------------------------
-SensDat1 <- MainDat[Class == "H"]
+FilePath.Sens1 <- CreateSubFolder(FilePath, "3.Northern temperate climate")
+### Northern temperate region -----------------------------------------------------------
+SensDat1 <- MainDat[(lat >= 23.5 & lat <= 66.5)]
 
 Sens1_MainAnalysis_Recir_REM <- Calu.SingleVir(SensDat1,
   target = "Time_interval", func = "REM", plot = TRUE, save = TRUE,
@@ -40,8 +40,8 @@ PercentIncrease <- Calu.Percent(NewDat, target = "Time_interval")
 fwrite(PercentIncrease, paste0(FilePath.Sens1, "PercentIncrease_Part1.csv"), row.names = FALSE)
 fwrite(OldWave, paste0(FilePath.Sens1, "OldWave_Part1.csv"), row.names = FALSE)
 
-### None high-income countries -----------------------------------------------------------
-SensDat2 <- MainDat[Class != "H"]
+### Southern temperate region -----------------------------------------------------------
+SensDat2 <- MainDat[(lat <= -23.5 & lat >= -66.5)]
 
 Sens2_MainAnalysis_Recir_REM <- Calu.SingleVir(SensDat2,
   target = "Time_interval", func = "REM", plot = TRUE, save = TRUE,
@@ -63,7 +63,7 @@ fwrite(OldWave, paste0(FilePath.Sens1, "OldWave_Part2.csv"), row.names = FALSE)
 
 
 # 3. Virus-virus analysis -------------------------------------------------
-#### High-income countries ------------------------------------------------
+#### Northern temperate region --------------------------------------------
 #### First wave -----------------------------------------------------------
 Sens1_TwoVirTable <- foreach(
   df = split(SensDat1[!Study_ID %in% c("S50A", "S50C")], by = "Study_ID"),
@@ -76,8 +76,8 @@ Sens1_TwoVirTable <- foreach(
 Sens1_TwoVirReport_Recir <- ReportTwoVir(dat = Sens1_TwoVirTable, index = "last")
 Sens1_TwoVirReport_Peak <- ReportTwoVir(dat = Sens1_TwoVirTable, index = "peak")
 
-fwrite(Sens1_TwoVirReport_Recir, paste0(FilePath.Sens1, "Two_recir_Part1.csv"), row.names = FALSE)
-fwrite(Sens1_TwoVirReport_Peak, paste0(FilePath.Sens1, "Two_peak_Part1.csv"), row.names = FALSE)
+fwrite(Sens1_TwoVirReport_Recir, paste0(FilePath.Sens1, "Two_recir.csv"), row.names = FALSE)
+fwrite(Sens1_TwoVirReport_Peak, paste0(FilePath.Sens1, "Two_peak.csv"), row.names = FALSE)
 
 ### Second wave -----------------------------------------------------------
 Sens1_MainDat_Sec <- SensDat1[Index_of_Wave == 2][, m_case := .N, by = .(Study_ID)][m_case > 1]
@@ -92,10 +92,10 @@ Sens1_TwoVirTable_Sec <- foreach(
 Sens1_TwoVirReport_Recir_Sec <- ReportTwoVir(dat = Sens1_TwoVirTable_Sec, index = "last")
 Sens1_TwoVirReport_Peak_Sec <- ReportTwoVir(dat = Sens1_TwoVirTable_Sec, index = "peak")
 
-fwrite(Sens1_TwoVirReport_Recir_Sec, paste0(FilePath.Sens1, "Two_recir_Sec_Part1.csv"), row.names = FALSE)
-fwrite(Sens1_TwoVirReport_Peak_Sec, paste0(FilePath.Sens1, "Two_peak_Sec_Part1.csv"), row.names = FALSE)
+fwrite(Sens1_TwoVirReport_Recir_Sec, paste0(FilePath.Sens1, "Two_recir_Sec.csv"), row.names = FALSE)
+fwrite(Sens1_TwoVirReport_Peak_Sec, paste0(FilePath.Sens1, "Two_peak_Sec.csv"), row.names = FALSE)
 
-#### None high-income countries ------------------------------------------------
+#### Southern temperate region --------------------------------------------
 #### First wave -----------------------------------------------------------
 Sens2_TwoVirTable <- foreach(
   df = split(SensDat2[!Study_ID %in% c("S50A", "S50C")], by = "Study_ID"),
