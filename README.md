@@ -1,6 +1,6 @@
-# Vir_interaction
+# Asynchronous resurgence of common respiratory viruses
  
-This repository contains the code for the paper: **Characterising the asynchronous resurgence of common respiratory viruses following the onset of the COVID-19 pandemic: a systematic analysis**
+This repository contains the code for the paper: **Characterising the asynchronous resurgence of common respiratory viruses following the onset of the COVID-19 pandemic**
 
 Authors: Chenkai Zhao, Tiantian Zhang, Ling Guo, Shiqi Sun, Yumeng Miao, Chee Fu Yung, Jane Tomlinson, Kirill Stolyarov, Zakhar Shchomak, Yong Poovorawan, David James Nokes, Carmen Muñoz-Almagro, Michal Mandelboim, James W Keck, Joanne Marie Langley, Terho Heikkinen, Jikui Deng, Philippe Colson, Giorgi Chakhunashvili, Mauricio T. Caballero, Louis Bont, Daniel R Feikin, Harish Nair, Xin Wang, You Li for the Respiratory Virus Global Epidemiology Network
 

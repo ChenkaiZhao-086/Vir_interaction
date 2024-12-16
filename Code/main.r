@@ -32,32 +32,7 @@ cl <- makeCluster(10) # Please modify the number of cores you wish to use.
 registerDoParallel(cl)
 
 # 1. Plot epidemic character and world map --------------------------------
-
-FilePath.sec1 <- CreateSubFolder(FilePath, "0.Check")
-
-Vir <- All_Vir %>%
-  filter(Virus_name %in% c(
-    "IV", "RSV", "PIV", "MPV", "sCoV", "RV", "AdV", "IAV", "IBV",
-    "H1N1", "H3N2", "PIV_1", "PIV_2", "PIV_3", "PIV_4"
-  )) %>%
-  filter(keep == T) %>%
-  mutate(
-    Virus_name = as_factor(Virus_name),
-    Virus_name = fct_relevel(
-      Virus_name, "IV", "IAV", "H1N1", "H3N2", "IBV", "RSV",
-      "PIV", "PIV_1", "PIV_2", "PIV_3", "PIV_4", "MPV", "sCoV", "RV", "AdV"
-    )
-  )
-
-foreach(
-  df = split(Vir, by = "Study_ID"),
-  .packages = packages
-) %dopar% {
-  plot.CountryTrend(VirData = df, save = T, path = FilePath.sec1, multiply = 6, width = 16, height = 8)
-}
-
 ### Plot research location
-
 ResLoca <- copy(All_Vir)
 ResLoca <- ResLoca %>%
   as.data.frame() %>%
@@ -159,11 +134,6 @@ MainAnalysis_Peak_REM <- Calu.SingleVir(MainDat,
 fwrite(MainAnalysis_Recir_REM, paste0(FilePath.sec2, "Pooling_Recir.csv"), row.names = FALSE)
 fwrite(MainAnalysis_Peak_REM, paste0(FilePath.sec2, "Pooling_Peak.csv"), row.names = FALSE)
 
-NewDat <- copy(MainDat)
-PercentIncrease <- Calu.Percent(NewDat, target = "Time_interval")
-fwrite(PercentIncrease, paste0(FilePath.sec2, "PercentIncrease.csv"), row.names = FALSE)
-fwrite(OldWave, paste0(FilePath.sec2, "OldWave.csv"), row.names = FALSE)
-
 # 3. Virus-virus analysis -------------------------------------------------
 #### First wave -----------------------------------------------------------
 TwoVirTable <- foreach(
@@ -240,11 +210,11 @@ source("Code/Sens3.R")
 
 # Sensitivity analysis 4
 # Filter out the studies that include the IFV subtype
-source("Code/Sens4.R")
+# source("Code/Sens4.R") # Please run this code line by line instead of source the whole code.
 
 # Sensitivity analysis 5
 # Filter out the studies that include the PIV subtype
-source("Code/Sens5.R")
+# source("Code/Sens5.R") # Please run this code line by line instead of source the whole code.
 
 # Sensitivity analysis 6
 # Filter data that report the outcome as proportion and as cases
@@ -280,3 +250,6 @@ source("Code/Sens14_Adhoc_4.R")
 
 # Sensitivity analysis Adhoc--Only summary data
 source("Code/Sens15_Adhoc_5.R")
+
+# Sensitivity analysis Adhoc--Canada multiple levels
+source("Code/Sens16_Adhoc_6.R")

@@ -34,26 +34,6 @@ SensDat1 <- All_Vir[!Study_ID %in% c(
   ) %>%
   setDT()
 
-Sens1_MainAnalysis_Recir_REM <- Calu.SingleVir(SensDat1,
-  target = "Time_interval", func = "REM", plot = TRUE, save = TRUE,
-  path = paste0(FilePath.Sens1, "Pooling_Recir_Part1.pdf"), width = 12, height = 18, report = FALSE
-)
-
-Sens1_MainAnalysis_Peak_REM <- Calu.SingleVir(SensDat1,
-  target = "Peak_interval", func = "REM", plot = TRUE, save = TRUE,
-  path = paste0(FilePath.Sens1, "Pooling_Peak_Part1.pdf"), width = 12, height = 18, report = FALSE
-)
-
-fwrite(Sens1_MainAnalysis_Recir_REM, paste0(FilePath.Sens1, "Pooling_Recir_Part1.csv"), row.names = FALSE)
-fwrite(Sens1_MainAnalysis_Peak_REM, paste0(FilePath.Sens1, "Pooling_Peak_Part1.csv"), row.names = FALSE)
-
-
-NewDat <- copy(SensDat1)
-PercentIncrease <- Calu.Percent(NewDat, target = "Time_interval")
-fwrite(PercentIncrease, paste0(FilePath.Sens1, "PercentIncrease_Part1.csv"), row.names = FALSE)
-fwrite(OldWave, paste0(FilePath.Sens1, "OldWave_Part1.csv"), row.names = FALSE)
-
-
 # 3. Virus-virus analysis -------------------------------------------------
 #### First wave -----------------------------------------------------------
 Sens1_TwoVirTable <- foreach(
@@ -215,29 +195,29 @@ colnames(Sens1_MergeTable_Peak) <- c(
 )
 ## Re-order the columns
 Sens1_TwoVirReport_Peak$FirstVir <- factor(Sens1_TwoVirReport_Peak$FirstVir,
-                                           levels = c(
-                                             "RV", "PIV_3", "sCoV", "RSV", "AdV",
-                                             "MPV", "PIV_4", "IAV", "PIV_1", "PIV_2", "IBV"
-                                           )
+  levels = c(
+    "RV", "PIV_3", "sCoV", "RSV", "AdV",
+    "MPV", "PIV_4", "IAV", "PIV_1", "PIV_2", "IBV"
+  )
 )
 Sens1_TwoVirReport_Peak$SecVir <- factor(Sens1_TwoVirReport_Peak$SecVir,
-                                         levels = c(
-                                           "RV", "PIV_3", "sCoV", "RSV", "AdV",
-                                           "MPV", "PIV_4", "IAV", "PIV_1", "PIV_2", "IBV"
-                                         )
+  levels = c(
+    "RV", "PIV_3", "sCoV", "RSV", "AdV",
+    "MPV", "PIV_4", "IAV", "PIV_1", "PIV_2", "IBV"
+  )
 )
 
 Sens1_TwoVirReport_Peak_Sec$FirstVir <- factor(Sens1_TwoVirReport_Peak_Sec$FirstVir,
-                                               levels = c(
-                                                 "RV", "PIV_3", "sCoV", "RSV", "AdV",
-                                                 "MPV", "PIV_4", "IAV", "PIV_1", "PIV_2", "IBV"
-                                               )
+  levels = c(
+    "RV", "PIV_3", "sCoV", "RSV", "AdV",
+    "MPV", "PIV_4", "IAV", "PIV_1", "PIV_2", "IBV"
+  )
 )
 Sens1_TwoVirReport_Peak_Sec$SecVir <- factor(Sens1_TwoVirReport_Peak_Sec$SecVir,
-                                             levels = c(
-                                               "RV", "PIV_3", "sCoV", "RSV", "AdV",
-                                               "MPV", "PIV_4", "IAV", "PIV_1", "PIV_2", "IBV"
-                                             )
+  levels = c(
+    "RV", "PIV_3", "sCoV", "RSV", "AdV",
+    "MPV", "PIV_4", "IAV", "PIV_1", "PIV_2", "IBV"
+  )
 )
 
 for (i in 1:55) {
@@ -245,7 +225,7 @@ for (i in 1:55) {
   SecVir_A <- Sens1_TwoVirReport_Peak[i, "SecVir"]
   FirstVir_B <- Sens1_TwoVirReport_Peak_Sec[i, "FirstVir"]
   SecVir_B <- Sens1_TwoVirReport_Peak_Sec[i, "SecVir"]
-  
+
   DirectMatch_A <- which(Sens1_MergeTable_Peak$FirstVir == FirstVir_A & Sens1_MergeTable_Peak$SecVir == SecVir_A)
   ReverseMatch_A <- which(Sens1_MergeTable_Peak$FirstVir == SecVir_A & Sens1_MergeTable_Peak$SecVir == FirstVir_A)
   if (length(ReverseMatch_A) > 0) {
@@ -253,7 +233,7 @@ for (i in 1:55) {
     FirstVir_A <- SecVir_A
     SecVir_A <- temp
   }
-  
+
   DirectMatch_B <- which(Sens1_MergeTable_Peak$FirstVir == FirstVir_B & Sens1_MergeTable_Peak$SecVir == SecVir_B)
   ReverseMatch_B <- which(Sens1_MergeTable_Peak$FirstVir == SecVir_B & Sens1_MergeTable_Peak$SecVir == FirstVir_B)
   if (length(ReverseMatch_B) > 0) {
@@ -261,7 +241,7 @@ for (i in 1:55) {
     FirstVir_B <- SecVir_B
     SecVir_B <- temp
   }
-  
+
   if (length(DirectMatch_A) > 0) {
     Sens1_MergeTable_Peak[Sens1_MergeTable_Peak$FirstVir == FirstVir_A & Sens1_MergeTable_Peak$SecVir == SecVir_A, 3:7] <-
       Sens1_TwoVirReport_Peak[Sens1_TwoVirReport_Peak$FirstVir == FirstVir_A & Sens1_TwoVirReport_Peak$SecVir == SecVir_A, 3:ncol(Sens1_TwoVirReport_Peak)]
@@ -269,7 +249,7 @@ for (i in 1:55) {
     Sens1_MergeTable_Peak[Sens1_MergeTable_Peak$FirstVir == FirstVir_A & Sens1_MergeTable_Peak$SecVir == SecVir_A, 3:7] <-
       -Sens1_TwoVirReport_Peak[Sens1_TwoVirReport_Peak$FirstVir == SecVir_A & Sens1_TwoVirReport_Peak$SecVir == FirstVir_A, 3:ncol(Sens1_TwoVirReport_Peak)]
   }
-  
+
   if (length(DirectMatch_B) > 0) {
     Sens1_MergeTable_Peak[Sens1_MergeTable_Peak$FirstVir == FirstVir_B & Sens1_MergeTable_Peak$SecVir == SecVir_B, 8:12] <-
       Sens1_TwoVirReport_Peak_Sec[Sens1_TwoVirReport_Peak_Sec$FirstVir == FirstVir_B & Sens1_TwoVirReport_Peak_Sec$SecVir == SecVir_B, 3:7]
@@ -294,11 +274,11 @@ for (i in 1:11) {
   for (j in 1:11) {
     # Set up plotting area
     plot(c(1:4), c(1:4),
-         xlab = "", ylab = "",
-         axes = FALSE, type = "n", # Blank plot
-         oma = c(4, 4, 4, 4)
+      xlab = "", ylab = "",
+      axes = FALSE, type = "n", # Blank plot
+      oma = c(4, 4, 4, 4)
     )
-    
+
     if (i == j) {
       # Diagonal text
       par(usr = c(0, 1, 0, 1))

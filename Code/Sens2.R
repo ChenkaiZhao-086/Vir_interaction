@@ -21,46 +21,8 @@ FilePath.Sens1 <- CreateSubFolder(FilePath, "2.From High-income")
 ### High-income countries -----------------------------------------------------------
 SensDat1 <- MainDat[Class == "H"]
 
-Sens1_MainAnalysis_Recir_REM <- Calu.SingleVir(SensDat1,
-  target = "Time_interval", func = "REM", plot = TRUE, save = TRUE,
-  path = paste0(FilePath.Sens1, "Pooling_Recir_Part1.pdf"), width = 12, height = 12, report = FALSE
-)
-
-Sens1_MainAnalysis_Peak_REM <- Calu.SingleVir(SensDat1,
-  target = "Peak_interval", func = "REM", plot = TRUE, save = TRUE,
-  path = paste0(FilePath.Sens1, "Pooling_Peak_Part1.pdf"), width = 12, height = 12, report = FALSE
-)
-
-fwrite(Sens1_MainAnalysis_Recir_REM, paste0(FilePath.Sens1, "Pooling_Recir_Part1.csv"), row.names = FALSE)
-fwrite(Sens1_MainAnalysis_Peak_REM, paste0(FilePath.Sens1, "Pooling_Peak_Part1.csv"), row.names = FALSE)
-
-
-NewDat <- copy(SensDat1)
-PercentIncrease <- Calu.Percent(NewDat, target = "Time_interval")
-fwrite(PercentIncrease, paste0(FilePath.Sens1, "PercentIncrease_Part1.csv"), row.names = FALSE)
-fwrite(OldWave, paste0(FilePath.Sens1, "OldWave_Part1.csv"), row.names = FALSE)
-
 ### None high-income countries -----------------------------------------------------------
 SensDat2 <- MainDat[Class != "H"]
-
-Sens2_MainAnalysis_Recir_REM <- Calu.SingleVir(SensDat2,
-  target = "Time_interval", func = "REM", plot = TRUE, save = TRUE,
-  path = paste0(FilePath.Sens1, "Pooling_Recir_Part2.pdf"), width = 12, height = 12, report = FALSE
-)
-
-Sens2_MainAnalysis_Peak_REM <- Calu.SingleVir(SensDat2,
-  target = "Peak_interval", func = "REM", plot = TRUE, save = TRUE,
-  path = paste0(FilePath.Sens1, "Pooling_Peak_Part2.pdf"), width = 12, height = 12, report = FALSE
-)
-
-fwrite(Sens2_MainAnalysis_Recir_REM, paste0(FilePath.Sens1, "Pooling_Recir_Part2.csv"), row.names = FALSE)
-fwrite(Sens2_MainAnalysis_Peak_REM, paste0(FilePath.Sens1, "Pooling_Peak_Part2.csv"), row.names = FALSE)
-
-NewDat <- copy(SensDat2)
-PercentIncrease <- Calu.Percent(NewDat, target = "Time_interval")
-fwrite(PercentIncrease, paste0(FilePath.Sens1, "PercentIncrease_Part2.csv"), row.names = FALSE)
-fwrite(OldWave, paste0(FilePath.Sens1, "OldWave_Part2.csv"), row.names = FALSE)
-
 
 # 3. Virus-virus analysis -------------------------------------------------
 #### High-income countries ------------------------------------------------
@@ -131,32 +93,32 @@ fwrite(Sens2_TwoVirReport_Peak_Sec, paste0(FilePath.Sens1, "Two_peak_Sec_Part2.c
 ### Plotting -----------------------------------------------------------
 ### First wave ---------------------------------------------------------
 # Recir
-Sens1_MergeTable_Recir <- Merge.Sensitivity(Sens1_TwoVirReport_Recir, Sens2_TwoVirReport_Recir)
+Sens1_MergeTable_Recir <- Merge.Sensitivity(Sens1_TwoVirReport_Recir, Sens1_TwoVirReport_Recir_Sec)
 Sens1_Matching_Recir <- Matching.Plot(Sens1_MergeTable_Recir)
-pdf(paste0(FilePath.Sens1, "Matching_Recir.pdf"), width = 14, height = 14)
+pdf(paste0(FilePath.Sens1, "Matching_Recir_High.pdf"), width = 14, height = 14)
 replayPlot(Sens1_Matching_Recir)
 dev.off()
 
 # Peak
-Sens1_MergeTable_Peak <- Merge.Sensitivity(Sens1_TwoVirReport_Peak, Sens2_TwoVirReport_Peak)
+Sens1_MergeTable_Peak <- Merge.Sensitivity(Sens1_TwoVirReport_Peak, Sens1_TwoVirReport_Peak_Sec)
 Sens1_Matching_Peak <- Matching.Plot(Sens1_MergeTable_Peak)
-pdf(paste0(FilePath.Sens1, "Matching_Peak.pdf"), width = 14, height = 14)
+pdf(paste0(FilePath.Sens1, "Matching_Peak_High.pdf"), width = 14, height = 14)
 replayPlot(Sens1_Matching_Peak)
 dev.off()
 
 
 ### Second wave ---------------------------------------------------------
 # Recir
-Sens2_MergeTable_Recir <- Merge.Sensitivity(Sens1_TwoVirReport_Recir_Sec, Sens2_TwoVirReport_Recir_Sec)
+Sens2_MergeTable_Recir <- Merge.Sensitivity(Sens2_TwoVirReport_Recir, Sens2_TwoVirReport_Recir_Sec)
 Sens2_Matching_Recir <- Matching.Plot(Sens2_MergeTable_Recir)
-pdf(paste0(FilePath.Sens1, "Matching_Recir_Sec.pdf"), width = 14, height = 14)
+pdf(paste0(FilePath.Sens1, "Matching_Recir_Low.pdf"), width = 14, height = 14)
 replayPlot(Sens2_Matching_Recir)
 dev.off()
 
 # Peak
-Sens2_MergeTable_Peak <- Merge.Sensitivity(Sens1_TwoVirReport_Peak_Sec, Sens2_TwoVirReport_Peak_Sec)
+Sens2_MergeTable_Peak <- Merge.Sensitivity(Sens2_TwoVirReport_Peak, Sens2_TwoVirReport_Peak_Sec)
 Sens2_Matching_Peak <- Matching.Plot(Sens2_MergeTable_Peak)
-pdf(paste0(FilePath.Sens1, "Matching_Peak_Sec.pdf"), width = 14, height = 14)
+pdf(paste0(FilePath.Sens1, "Matching_Peak_Low.pdf"), width = 14, height = 14)
 replayPlot(Sens2_Matching_Peak)
 dev.off()
 

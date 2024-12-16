@@ -35,11 +35,6 @@ Sens1_MainAnalysis_Peak_REM <- Calu.SingleVir(SensDat1,
 fwrite(Sens1_MainAnalysis_Recir_REM, paste0(FilePath.Sens1, "Pooling_Recir_Part1.csv"), row.names = FALSE)
 fwrite(Sens1_MainAnalysis_Peak_REM, paste0(FilePath.Sens1, "Pooling_Peak_Part1.csv"), row.names = FALSE)
 
-NewDat <- copy(SensDat1)
-PercentIncrease <- Calu.Percent(NewDat, target = "Time_interval")
-fwrite(PercentIncrease, paste0(FilePath.Sens1, "PercentIncrease_Part1.csv"), row.names = FALSE)
-fwrite(OldWave, paste0(FilePath.Sens1, "OldWave_Part1.csv"), row.names = FALSE)
-
 ### Tropical region -----------------------------------------------------------
 SensDat2 <- MainDat[lat <= 23.5 & lat >= -23.5]
 
@@ -136,32 +131,32 @@ fwrite(Sens2_TwoVirReport_Peak_Sec, paste0(FilePath.Sens1, "Two_peak_Sec_Part2.c
 ### Ploting --------------------------------------------------------------
 ### First wave -----------------------------------------------------------
 # Recir
-Sens1_MergeTable_Recir <- Merge.Sensitivity(Sens1_TwoVirReport_Recir, Sens2_TwoVirReport_Recir)
+Sens1_MergeTable_Recir <- Merge.Sensitivity(Sens1_TwoVirReport_Recir, Sens1_TwoVirReport_Recir_Sec)
 Sens1_Matching_Recir <- Matching.Plot(Sens1_MergeTable_Recir)
-pdf(paste0(FilePath.Sens1, "Matching_Recir.pdf"), width = 14, height = 14)
+pdf(paste0(FilePath.Sens1, "Matching_Recir_Temp.pdf"), width = 14, height = 14)
 replayPlot(Sens1_Matching_Recir)
 dev.off()
 
 # Peak
-Sens1_MergeTable_Peak <- Merge.Sensitivity(Sens1_TwoVirReport_Peak, Sens2_TwoVirReport_Peak)
+Sens1_MergeTable_Peak <- Merge.Sensitivity(Sens1_TwoVirReport_Peak, Sens1_TwoVirReport_Peak_Sec)
 Sens1_Matching_Peak <- Matching.Plot(Sens1_MergeTable_Peak)
-pdf(paste0(FilePath.Sens1, "Matching_Peak.pdf"), width = 14, height = 14)
+pdf(paste0(FilePath.Sens1, "Matching_Peak_Temp.pdf"), width = 14, height = 14)
 replayPlot(Sens1_Matching_Peak)
 dev.off()
 
 
 ### Second wave -----------------------------------------------------------
 # Recir
-Sens2_MergeTable_Recir <- Merge.Sensitivity(Sens1_TwoVirReport_Recir_Sec, Sens2_TwoVirReport_Recir_Sec)
+Sens2_MergeTable_Recir <- Merge.Sensitivity(Sens2_TwoVirReport_Recir, Sens2_TwoVirReport_Recir_Sec)
 Sens2_Matching_Recir <- Matching.Plot(Sens2_MergeTable_Recir)
-pdf(paste0(FilePath.Sens1, "Matching_Recir_Sec.pdf"), width = 14, height = 14)
+pdf(paste0(FilePath.Sens1, "Matching_Recir_Trop.pdf"), width = 14, height = 14)
 replayPlot(Sens2_Matching_Recir)
 dev.off()
 
 # Peak
-Sens2_MergeTable_Peak <- Merge.Sensitivity(Sens1_TwoVirReport_Peak_Sec, Sens2_TwoVirReport_Peak_Sec)
+Sens2_MergeTable_Peak <- Merge.Sensitivity(Sens2_TwoVirReport_Peak, Sens2_TwoVirReport_Peak_Sec)
 Sens2_Matching_Peak <- Matching.Plot(Sens2_MergeTable_Peak)
-pdf(paste0(FilePath.Sens1, "Matching_Peak_Sec.pdf"), width = 14, height = 14)
+pdf(paste0(FilePath.Sens1, "Matching_Peak_Trop.pdf"), width = 14, height = 14)
 replayPlot(Sens2_Matching_Peak)
 dev.off()
 

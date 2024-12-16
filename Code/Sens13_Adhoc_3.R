@@ -23,25 +23,6 @@ FilePath.Sens1 <- CreateSubFolder(FilePath, "Ad hoc3")
 
 SensDat1 <- MainDat[Country != "China"]
 
-Sens1_MainAnalysis_Recir_REM <- Calu.SingleVir(SensDat1,
-    target = "Time_interval", func = "REM", plot = TRUE, save = TRUE,
-    path = paste0(FilePath.Sens1, "Pooling_Recir_Part1.pdf"), width = 12, height = 12, report = FALSE
-)
-
-Sens1_MainAnalysis_Peak_REM <- Calu.SingleVir(SensDat1,
-    target = "Peak_interval", func = "REM", plot = TRUE, save = TRUE,
-    path = paste0(FilePath.Sens1, "Pooling_Peak_Part1.pdf"), width = 12, height = 12, report = FALSE
-)
-
-fwrite(Sens1_MainAnalysis_Recir_REM, paste0(FilePath.Sens1, "Pooling_Recir_Part1.csv"), row.names = FALSE)
-fwrite(Sens1_MainAnalysis_Peak_REM, paste0(FilePath.Sens1, "Pooling_Peak_Part1.csv"), row.names = FALSE)
-
-
-NewDat <- copy(SensDat1)
-PercentIncrease <- Calu.Percent(NewDat, target = "Time_interval")
-fwrite(PercentIncrease, paste0(FilePath.Sens1, "PercentIncrease_Part1.csv"), row.names = FALSE)
-fwrite(OldWave, paste0(FilePath.Sens1, "OldWave_Part1.csv"), row.names = FALSE)
-
 # 3. Virus-virus analysis -------------------------------------------------
 #### First wave -----------------------------------------------------------
 Sens1_TwoVirTable <- foreach(

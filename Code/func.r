@@ -357,13 +357,13 @@ Calu.SingleVir.plot <- function(dat, target, save, path, width = 16, height = 8,
     arrange(Virus_name, Index_of_Wave) %>%
     mutate(
       Pandemic = if_else(Index_of_Wave %in% as.character(seq(-6, -1)), "Before the pandemic",
-        if_else(Index_of_Wave == 1, "After the pandemic\n(the first onset)",
-          "After the pandemic\n(the second and later onsets)"
+        if_else(Index_of_Wave == 1, "The first resurgence\nafter the pandemic",
+          "The second resurgence\nafter the pandemic"
         )
       ),
       Pandemic = fct_relevel(
-        Pandemic, "Before the pandemic", "After the pandemic\n(the first onset)",
-        "After the pandemic\n(the second and later onsets)"
+        Pandemic, "Before the pandemic", "The first resurgence\nafter the pandemic",
+        "The second resurgence\nafter the pandemic"
       ),
       across(c(mean, lci, uci), function(x) if_else(x < 0, -x, x)),
       group = as.factor(paste0(Virus_name, "_", Index_of_Wave))
@@ -379,7 +379,7 @@ Calu.SingleVir.plot <- function(dat, target, save, path, width = 16, height = 8,
     geom_errorbar(aes(x = fct_rev(Index_of_Wave), ymin = lci, ymax = uci, colour = Pandemic), linewidth = 1, width = 0.8) +
     geom_point(aes(x = fct_rev(Index_of_Wave), y = mean, colour = Pandemic), size = 3) +
     scale_color_manual(values = c(
-      "After the pandemic\n(the second and later onsets)" = "#4dbbd5", "After the pandemic\n(the first onset)" = "#ff7f0e",
+      "The second resurgence\nafter the pandemic" = "#4dbbd5", "The first resurgence\nafter the pandemic" = "#ff7f0e",
       "Before the pandemic" = "#d62728"
     )) +
     scale_y_continuous(
@@ -442,7 +442,7 @@ Calu.SingleVir <- function(dat, target = c("Time_interval", "Peak_interval"), fu
 
       AfterPandemic <- RecircDat[Index_of_Wave > 0]
       AfterPandemic <- na.omit(AfterPandemic)
-      AfterPandemic <- AfterPandemic[, Cumday := cumsum(as.numeric(mean)), keyby = .(Virus_name)][, c("Cumlci", "Cumuci") := .(round(Cumday - 1.96 * sd / sqrt(num), 0), round(Cumday + 1.96 * sd / sqrt(num), 2))]
+      AfterPandemic <- AfterPandemic[, c("lci", "uci", "ci") := .(mean - 1.96 * sd / sqrt(num), mean + 1.96 * sd / sqrt(num), NA)][, Cumday := cumsum(as.numeric(mean)), keyby = .(Virus_name)][, c("Cumlci", "Cumuci") := .(round(Cumday - 1.96 * sd / sqrt(num), 0), round(Cumday + 1.96 * sd / sqrt(num), 2))]
 
       RecircDat <- bind_rows(BeforePandemic, AfterPandemic)
       RecircDat <- RecircDat[order(Virus_name, Index_of_Wave)]

@@ -10,19 +10,15 @@ General <- read_excel(FileName, sheet = "General") %>%
   ) %>%
   as.data.table()
 Vir_list <- read_excel(FileName, sheet = "Vir-list", col_types = c(
-  "text", "text", "text", "text", "text", "text", "text", "text",
-  "text", "numeric", "date", "date", "numeric", "text", "date",
-  "date", "numeric", "text", "text", "numeric"
+  "text", "text", "text", "text", "text", "text", "text",
+  "numeric", "date", "date", "date", "date", "numeric"
 )) %>% as.data.table()
 
 All_Vir <- right_join(General, Vir_list, multiple = "all") %>%
   filter(keep) %>%
   mutate(across(ends_with("_time"), as.Date),
     Time_interval = ReCirculation_time - Last_circ_time,
-    Peak_interval = Peak_time - Last_peak_time,
-    Ratio_rate = (ReCirculation_rate / Last_circ_rate) * 100,
-    ReCir_peak_interval = Peak_time - ReCirculation_time,
-    Last_peak_interval = Last_peak_time - Last_circ_time
+    Peak_interval = Peak_time - Last_peak_time
   ) %>%
   mutate(Virus_ID = case_when(
     Virus_name == "IFV" ~ "V1",
